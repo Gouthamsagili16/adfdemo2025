@@ -118,6 +118,85 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "train.json",
+						"container": "destination"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Store": {
+							"type": "string"
+						},
+						"DayOfWeek": {
+							"type": "string"
+						},
+						"Date": {
+							"type": "string"
+						},
+						"Sales": {
+							"type": "string"
+						},
+						"Customers": {
+							"type": "string"
+						},
+						"Open": {
+							"type": "string"
+						},
+						"Promo": {
+							"type": "string"
+						},
+						"StateHoliday": {
+							"type": "string"
+						},
+						"SchoolHoliday": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "destination"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -172,6 +251,63 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "blob_source_to_destination1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "blob_source_todestination",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Json2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -182,7 +318,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
-				"[concat(variables('factoryId'), '/datasets/Json1')]"
+				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/datasets/Json2')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
 			]
 		}
 	]
