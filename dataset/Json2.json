@@ -1,0 +1,50 @@
+{
+	"name": "Json2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "train.json",
+				"container": "destination"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Store": {
+					"type": "string"
+				},
+				"DayOfWeek": {
+					"type": "string"
+				},
+				"Date": {
+					"type": "string"
+				},
+				"Sales": {
+					"type": "string"
+				},
+				"Customers": {
+					"type": "string"
+				},
+				"Open": {
+					"type": "string"
+				},
+				"Promo": {
+					"type": "string"
+				},
+				"StateHoliday": {
+					"type": "string"
+				},
+				"SchoolHoliday": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
