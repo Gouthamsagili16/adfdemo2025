@@ -11,6 +11,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"Ls_Azuredatabase_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Ls_Azuredatabase'"
+		},
+		"Ls_Azuredatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "azuresqldbservernov2025.database.windows.net"
+		},
+		"Ls_Azuredatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AzureSQLDB"
+		},
+		"Ls_Azuredatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Gouthamsagili16"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -40,6 +56,18 @@
 					},
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"Ls_Azuredatabase_password": {
+						"value": "[parameters('Ls_Azuredatabase_password')]"
+					},
+					"Ls_Azuredatabase_properties_typeProperties_server": {
+						"value": "[parameters('Ls_Azuredatabase_properties_typeProperties_server')]"
+					},
+					"Ls_Azuredatabase_properties_typeProperties_database": {
+						"value": "[parameters('Ls_Azuredatabase_properties_typeProperties_database')]"
+					},
+					"Ls_Azuredatabase_properties_typeProperties_userName": {
+						"value": "[parameters('Ls_Azuredatabase_properties_typeProperties_userName')]"
 					}
 				}
 			},
