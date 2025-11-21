@@ -1,0 +1,17 @@
+{
+	"name": "Ls_Azuredatabase",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "azuresqldbservernov2025.database.windows.net",
+			"database": "AzureSQLDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "Gouthamsagili16",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDhFQzVDRDlCLTE1QTgtNDNBQS1CMzk5LTE3OThDNUQ5MzQ1Nl9iOTQyYmZkOC1hNTk2LTQwYTctYTM1ZC04YjhhZTFkZTk1NmEiDQp9"
+		}
+	}
+}
